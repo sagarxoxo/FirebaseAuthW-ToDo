@@ -5,7 +5,6 @@ const Home = () => {
     const [task, setTask] = useState()
     const [taskData, setTaskData] = useState([])
 
-
     const handleChange = (e) => {
         setTask(e.target.value)
     }
