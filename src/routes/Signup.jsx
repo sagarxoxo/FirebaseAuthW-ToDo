@@ -4,6 +4,7 @@ import { auth, provider } from '../firebase/firebaseConfig'
 
 export const Signup = () => {
 
+    
     const [formData , setFormData] = useState({email: "", password: "" })
 
     const handleChange = (e) => {
@@ -17,7 +18,7 @@ export const Signup = () => {
     }
 
     const singInGoogle = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup (auth, provider)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
