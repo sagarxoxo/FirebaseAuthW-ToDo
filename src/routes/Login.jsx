@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { signInWithPopup,createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
 import { auth, provider } from '../firebase/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../context/UseContext';
 
 export const Login = () => {
 
     const [formData , setFormData] = useState({email: "", password: "" })
     const navigate = useNavigate();
-   
-
+    const contUser = useContext(UserContext)
     const handleChange = (e) => {
         const {name, value} = e.target
         setFormData(prevData => {
@@ -24,8 +24,9 @@ export const Login = () => {
         signInWithPopup(auth, provider)
         .then(res => {
             console.log(res)
-            localStorage.setItem('users',res.user.accessToken )
+            localStorage.setItem('users',res.user.uid )
            navigate("/")
+           contUser.setUser(res.user.uid)
         })
         .catch(err => console.log(err))
     }
@@ -35,10 +36,9 @@ export const Login = () => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log(user)
-            localStorage.setItem('users',user.accessToken )
+            localStorage.setItem('users',user.uid )
           navigate("/")
-
+          contUser.setUser(user.uid)
         })
         .catch((error) => {
           const errorCode = error.code;

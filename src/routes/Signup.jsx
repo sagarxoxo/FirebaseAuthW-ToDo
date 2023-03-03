@@ -25,7 +25,7 @@ export const Signup = () => {
         signInWithPopup (auth, provider)
         .then(res => {
             console.log(res)
-            localStorage.setItem('users',res.user.accessToken )
+            localStorage.setItem('users',res.user.uid )
            navigate("/")
         })
         .catch(err => console.log(err))
@@ -37,8 +37,8 @@ export const Signup = () => {
           // Signed in 
           const user = userCredential.user;
           console.log(user)
-          addDoc(collectionUser, {email: user.reloadUserInfo.email, password: user.reloadUserInfo.passwordHash, accessToken: user.accessToken})
-          localStorage.setItem('users',user.accessToken )
+          addDoc(collectionUser, {email: user.reloadUserInfo.email, password: user.reloadUserInfo.passwordHash, uid: user.uid})
+          localStorage.setItem('users',user.uid )
           navigate("/")
         })
         .catch((error) => {
@@ -48,7 +48,6 @@ export const Signup = () => {
         });
     }
 
-    console.log(formData)
   return (
     <div  className='container'>
         <div className='signup'>
